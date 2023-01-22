@@ -33,13 +33,13 @@ set MINGW64_BIN_PATH=<path>
 Compiler: **MSVC** (automated)
 
 | Test Platform | Target Platform | Environment | Architecture | Build and Test |
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 | Windows Server 2022, Windows Server 2019 | Windows 10 |  Visual Studio 2022, Visual Studio  2019 | x86, x86_64 | [![Build and Test](https://github.com/underwatergrasshopper/TrivialTestKit/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/underwatergrasshopper/TimeLapse/actions/workflows/build_and_test.yml) |
 
  Compiler: **LLVM CLang MinGW** (automated)
 
 | Test Platform | Target Platform | Environment | Architecture | Build and Test |
-|-|-|-|-|-|-|
+|-|-|-|-|-|
 | Windows Server 2022 | Windows 10 | MinGW-W64 (LLVM Clang 15.0.0) | x86, x86_64 |  [![Build and Test (MinGW)](https://github.com/underwatergrasshopper/TrivialTestKit/actions/workflows/build_and_test_mingw.yml/badge.svg)](https://github.com/underwatergrasshopper/TimeLapse/actions/workflows/build_and_test_mingw.yml) |
 
 ## Examples
