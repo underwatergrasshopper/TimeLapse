@@ -23,5 +23,7 @@
     <None Include="CHANGELOG.md" />
     <None Include="README.md" />
     <None Include="Pack.bat" />
+    <None Include=".github\workflows\build_and_test.yml" />
+    <None Include=".github\workflows\build_and_test_mingw.yml" />
   </ItemGroup>
 </Project>
