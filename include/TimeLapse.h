@@ -31,6 +31,73 @@
 #ifndef TIMELAPSE_H_
 #define TIMELAPSE_H_
 
+#define WIN32_LEAN_AND_MEAN 
+#include <windows.h>
+#undef WIN32_LEAN_AND_MEAN 
 
+/** Measures difference in seconds between two points in code. */
+class TimeLapse {
+public:
+    TimeLapse() {
+        m_end = m_begin = {};
+        m_diff = 0;
+
+        // Quote from MSDN: "The frequency of the performance counter is fixed at system boot and is consistent across all processors."
+        QueryPerformanceFrequency(&m_freq); 
+    }
+
+    virtual ~TimeLapse() {}
+
+    void Start() {
+        QueryPerformanceCounter(&m_begin);
+    }
+
+    void Stop() {
+        QueryPerformanceCounter(&m_end);
+        m_diff = double(m_end.QuadPart - m_begin.QuadPart) / m_freq.QuadPart;
+    }
+
+    void Update() {
+        Stop();
+        m_begin = m_end;
+    }
+
+    void Reset() {
+        Start();
+        m_end = m_begin;
+        m_diff = 0;
+    }
+
+    /** 
+        @return Time difference in seconds:
+            between Start method call and Stop method call,
+            between Reset method call and Update method call,
+            between two last Update method calls.
+    */
+    double Get() const { return m_diff; } 
+
+private:
+    LARGE_INTEGER           m_begin;
+    LARGE_INTEGER           m_end;
+    double                  m_diff;         ///< Time in seconds.
+
+    LARGE_INTEGER           m_freq;
+};
+
+// --- Example 1 --- //
+// TimeLapse tl;
+// tl.Start();
+// ... code ...
+// tl.Stop();
+// printf("%fs\n", tl.Get());
+
+// --- Example 2 --- //
+// TimeLapse tl;
+// tl.Reset();
+// while (true) {
+//     ... code ...
+//     tl.Update();
+//     printf("%fs\n", ettlGet());
+// }
 
 #endif // TIMELAPSE_H_
