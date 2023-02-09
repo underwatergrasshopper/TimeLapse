@@ -51,7 +51,7 @@ Compiler: **MSVC** (automated)
 #include <TimeLapse.h>
 
 int main() {
-    TimeLapse tl;
+    TimeLapseF64 tl;
 
     tl.Start();
     Sleep(400);
@@ -68,12 +68,12 @@ int main() {
 #include <TimeLapse.h>
 
 int main() {
-    TimeLapse tl;
+    TimeLapseF64 tl;
 
     tl.Reset();
 
-    int count = 5;
-    while (count--) {
+    int countdown = 5;
+    while (countdown--) {
         Sleep(400);
         // Measures time difference from:
         //      Reset   - for first call of Update,
@@ -81,6 +81,31 @@ int main() {
         tl.Update(); 
 
         printf("%fs\n", tl.Get());
+    }
+}
+```
+
+### Example 3
+
+```c++
+#include <windows.h>
+#include <TimeLapse.h>
+
+int main() {
+    TimeLapseF64 tl;
+
+    tl.Reset();
+
+    int count = 1;
+    while (count < 10) {
+        Sleep(400);
+
+        if (tl.UpdateIfAbove(1.0)) {
+            // Measures difference only if difference would be bigger than 1 second.
+            printf("%fs, count=%d\n", tl.Get(), count);
+            break;
+        }
+        count += 1;
     }
 }
 ```

@@ -6,7 +6,7 @@ int main() {
     puts("LapseExample begin.");
     puts("All measured time lapses should be around 0.4s.");
 
-    TimeLapse tl;
+    TimeLapseF64 tl;
 
     {
         tl.Start();
@@ -18,13 +18,28 @@ int main() {
 
     {
         tl.Reset();
-        int count = 2;
+        int countdown = 2;
 
-        while (count--) {
+        while (countdown--) {
             Sleep(400);
             tl.Update();
 
             printf("%fs\n", tl.Get());
+        }
+    }
+
+    {
+        tl.Reset();
+        int count = 1;
+
+        while (count < 10) {
+            Sleep(400);
+            if (tl.UpdateIfAbove(1.0)) {
+
+                printf("%fs, count=%d\n", tl.Get(), count);
+                break;
+            }
+            count += 1;
         }
     }
 
